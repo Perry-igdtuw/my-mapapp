@@ -50,7 +50,7 @@ export default function Map() {
       }
       idx++;
       // If we’ve looped over all buckets and none have items, break
-      if (idx > cellKeys.length * maxCount) break;
+      if (idx > cellKeys.length * maxCount) break; 
     }
     return sampled;
   };
@@ -66,7 +66,7 @@ export default function Map() {
     });
     mapRef.current = map;
 
-    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right'); // Add zoom and rotation controls to the map
 
     map.on('load', () => {
       // Initialize with an empty source
@@ -94,11 +94,11 @@ export default function Map() {
     });
 
     map.on('moveend', () => {
-      const bounds   = map.getBounds();
-      const filtered = filterByBounds(bounds, samplePins);
+      const bounds   = map.getBounds(); //gets the bounds of the current view
+      const filtered = filterByBounds(bounds, samplePins); 
       const sampled  = sampleFeatures(filtered, 30, 10);
 
-      const geojson = { type: 'FeatureCollection', features: sampled };
+      const geojson = { type: 'FeatureCollection', features: sampled }; //
       setVisibleData(geojson);
       map.getSource('pins').setData(geojson);
     });
